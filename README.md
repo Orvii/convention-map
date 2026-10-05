@@ -15,6 +15,7 @@ The ecosystem converged on a handful of convention files (`CLAUDE.md`, `AGENTS.m
 - [harnesses/](harnesses/) — per harness: loaded paths with scope (global/project) and documented precedence, skill directories, learned-memory behavior, compatibility notes.
 - [PRECEDENCE.md](PRECEDENCE.md) — the three conflict models (concatenate / first-match / specificity-overrides) for when two instruction files disagree.
 - [MEMORY.md](MEMORY.md) — which harnesses write learned memory about you, where it lives, and on-by-default vs opt-in.
+- [COVERAGE.md](COVERAGE.md) — what is included, what is deliberately not, and why.
 - [SYNTHESIS.md](SYNTHESIS.md) — what the convergence means, and its expiry date.
 - Every cell links to the doc page it was read from, fetched during the research run (2026-10-05).
 
