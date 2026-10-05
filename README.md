@@ -27,10 +27,6 @@ python3 scripts/generate.py <journal.jsonl> [...]
 
 Same evidence contract as [harness-atlas](https://github.com/Orvii/harness-atlas): no memory answers, dates travel with claims, `unknown` over guess.
 
----
-
-Orvii — Open, Research, Vision, Innovation & Ideas. Sister of [harness-atlas](https://github.com/Orvii/harness-atlas); the atlas maps capabilities, this maps the files they read.
-
 ## Using the finding: mirror your skills
 
 The map says `.agents/skills` (13/17) and `.claude/skills` (8/17) together cover the field. `scripts/mirror-skills.sh` copies a skill folder into both:
@@ -40,3 +36,8 @@ scripts/mirror-skills.sh path/to/my-skill [repo-root]
 ```
 
 Copies, not symlinks — several harnesses walk skill directories without following links. Re-run after edits.
+
+---
+
+Orvii — Open, Research, Vision, Innovation & Ideas. Sister of [harness-atlas](https://github.com/Orvii/harness-atlas); the atlas maps capabilities, this maps the files they read.
+
