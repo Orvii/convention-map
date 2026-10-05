@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+"""Regenerate matrix.md + harnesses/*.md from convention-map research journals.
+
+Usage: python3 scripts/generate.py <journal.jsonl> [more...]
+Journal lines: {"type":"result","result":{harness, instruction_files[], skill_dirs[], memory, ...}}
+"""
+import json
+import re
+import sys
+from pathlib import Path
+
+
+def slug(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+INSTR_VOCAB = [
+    "CLAUDE.md", "CLAUDE.local.md", "AGENTS.md", "GEMINI.md", "CRUSH.md",
+    "QWEN.md", ".cursorrules", "copilot-instructions.md", "opencode.json",
+    "kilo.jsonc", ".continue/", "rules/",
+]
+SKILL_VOCAB = [
+    ".claude/skills", ".agents/skills", ".cursor/skills", ".continue/skills",
+    ".opencode/skills", ".kilo/skills", ".qwen/skills", ".goose/skills",
+    ".github/copilot", "plugins/",
+]
+
+
+def match_vocab(text: str, vocab):
+    """Free-form doc prose -> set of known convention markers it mentions."""
+    low = text.lower()
+    return {v for v in vocab if v.lower() in low}
+
+
+def load(journals):
+    merged = {}
+    for j in journals:
+        for line in Path(j).read_text().splitlines():
+            if not line.strip():
+                continue
+            m = json.loads(line)
+            r = m.get("result")
+            if m.get("type") != "result" or not isinstance(r, dict) or "harness" not in r:
+                continue
+            merged[slug(r["harness"])] = r
+    return sorted(merged.values(), key=lambda r: slug(r["harness"]))
+
+
+def main(journals, out: Path):
+    rows = load(journals)
+    if not rows:
+        sys.exit("no results")
+
+    # union of vocabulary markers mentioned across all entries
+    files = []
+    for r in rows:
+        for f in r.get("instruction_files", []):
+            for v in match_vocab(f["path"], INSTR_VOCAB):
+                if v not in files:
+                    files.append(v)
+        for d in r.get("skill_dirs", []):
+            for v in match_vocab(d["path"], SKILL_VOCAB):
+                if v not in files:
+                    files.append(v)
+    files.sort()
+
+    (out / "harnesses").mkdir(exist_ok=True)
+    for r in rows:
+        s = slug(r["harness"])
+        lines = [f"# {r['harness']}", "", "## Instruction files loaded", ""]
+        if r.get("instruction_files"):
+            lines += ["| path | scope | precedence | evidence |", "|---|---|---|---|"]
+            for f in r["instruction_files"]:
+                prec = (f.get("precedence_note") or "—").replace("|", "\\|")
+                lines.append(f"| `{f['path']}` | {f['scope']} | {prec} | [src]({f['evidence_url']}) |")
+        else:
+            lines.append("none documented.")
+        lines += ["", "## Skill directories discovered", ""]
+        if r.get("skill_dirs"):
+            lines += [f"- `{d['path']}` — [src]({d['evidence_url']})" for d in r["skill_dirs"]]
+        else:
+            lines.append("none documented.")
+        lines += ["", "## Learned memory", "", r.get("memory", "—")]
+        if r.get("memory_evidence_url"):
+            lines += ["", f"[src]({r['memory_evidence_url']})"]
+        if r.get("notes"):
+            lines += ["", "## Compatibility notes", "", r["notes"]]
+        (out / "harnesses" / f"{s}.md").write_text("\n".join(lines) + "\n")
+
+    # matrix: harness x file, mark loads
+    md = ["# Convention-file load matrix", "",
+          "Cell = harness loads that path (●) or discovers it as a skill dir (◆). Evidence on each harness page.", ""]
+    md.append("| harness | " + " | ".join(f"`{p}`" for p in files) + " |")
+    md.append("|---|" + "---|" * len(files))
+    for r in rows:
+        instr = set()
+        for f in r.get("instruction_files", []):
+            instr |= match_vocab(f["path"], INSTR_VOCAB)
+        skills = set()
+        for d in r.get("skill_dirs", []):
+            skills |= match_vocab(d["path"], SKILL_VOCAB)
+        s = slug(r["harness"])
+        cells = []
+        for p in files:
+            mark = "●" if p in instr else ""
+            if not mark and p in SKILL_VOCAB and p in skills:
+                mark = "◆"
+            cells.append(f"[{mark}](harnesses/{s}.md)" if mark else "·")
+        md.append(f"| [{r['harness']}](harnesses/{s}.md) | " + " | ".join(cells) + " |")
+    (out / "matrix.md").write_text("\n".join(md) + "\n")
+    print(f"wrote {len(rows)} pages + matrix.md over {len(files)} convention paths")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        sys.exit(__doc__)
+    main(sys.argv[1:], Path(__file__).resolve().parent.parent)

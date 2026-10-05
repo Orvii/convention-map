@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="convention-map — many harnesses reading the same few files">
+  <style>
+    .flow { animation: flow 3s linear infinite; }
+    .file { animation: pulse 4s ease-in-out infinite; }
+    @keyframes flow { to { stroke-dashoffset: -24; } }
+    @keyframes pulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .flow, .file { animation: none; } }
+  </style>
+
+  <rect width="1200" height="300" fill="#0b0806"/>
+  <text x="60" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="52" font-weight="700" fill="#F8F5F2">convention-map</text>
+  <text x="60" y="112" font-family="ui-monospace, Menlo, monospace" font-size="17" letter-spacing="1.5" fill="#FE9106">who reads your AGENTS.md — measured, not assumed</text>
+  <rect x="60" y="126" width="110" height="3" fill="#FE9106"/>
+
+  <!-- three convention files in the middle -->
+  <g font-family="ui-monospace, Menlo, monospace" font-size="14" text-anchor="middle">
+    <g class="file">
+      <rect x="500" y="160" width="130" height="44" rx="6" fill="#140d08" stroke="#FE9106"/>
+      <text x="565" y="187" fill="#F8F5F2">AGENTS.md</text>
+    </g>
+    <g class="file" style="animation-delay:.7s">
+      <rect x="660" y="160" width="130" height="44" rx="6" fill="#140d08" stroke="#FEAF12"/>
+      <text x="725" y="187" fill="#F8F5F2">CLAUDE.md</text>
+    </g>
+    <g class="file" style="animation-delay:1.4s">
+      <rect x="820" y="160" width="150" height="44" rx="6" fill="#140d08" stroke="#FE7007"/>
+      <text x="895" y="187" fill="#F8F5F2">.claude/skills/</text>
+    </g>
+  </g>
+
+  <!-- harnesses converging: dashed flows from left and right -->
+  <g class="flow" stroke="#5c4c3f" stroke-width="1.5" stroke-dasharray="6 6" fill="none">
+    <path d="M120 120 C 260 140, 380 160, 495 178"/>
+    <path d="M120 200 C 260 195, 380 188, 495 184"/>
+    <path d="M120 260 C 260 240, 380 210, 495 190"/>
+    <path d="M1080 120 C 1030 140, 1000 160, 975 178"/>
+    <path d="M1080 200 C 1030 195, 1000 190, 975 186"/>
+    <path d="M1080 260 C 1030 240, 1000 210, 975 192"/>
+  </g>
+  <g font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#b7a496">
+    <text x="60" y="124">opencode</text>
+    <text x="60" y="204">crush</text>
+    <text x="60" y="264">goose</text>
+    <text x="1140" y="124" text-anchor="end">kilo</text>
+    <text x="1140" y="204" text-anchor="end">vibe</text>
+    <text x="1140" y="264" text-anchor="end">continue</text>
+  </g>
+
+  <text x="60" y="292" font-family="ui-monospace, Menlo, monospace" font-size="13" fill="#6e5c50">17 harnesses · every load-path claim cites a fetched doc · as of 2026-10-05</text>
+</svg>
