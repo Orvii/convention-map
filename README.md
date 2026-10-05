@@ -23,6 +23,8 @@ The ecosystem converged on a handful of convention files (`CLAUDE.md`, `AGENTS.m
 
 As of this snapshot (17 harnesses): `AGENTS.md` at the project root is read by **16 of 17** — the de-facto instruction interchange. For skills the field splits: `.agents/skills` is discovered by 13, while `.claude/skills` is discovered by 8, several of those purely for Claude-Code compatibility. Practical read: put instructions in `AGENTS.md`; put skills in `.agents/skills` and mirror into `.claude/skills` if you care about the compatibility tail. Read [SYNTHESIS.md](SYNTHESIS.md) for why that is an observation with an expiry date, not a standard.
 
+This repo answers *which file each harness reads*. The two adjacent questions — *what people actually put in those files* (2,303 real ones: testing instructions in 75.9%, security in 14.8%) and *whether the files change what agents do* (four experiments, one of them a null with a stated power bound) — live in [context-file-evidence](https://github.com/Orvii/context-file-evidence). Read together they say: the format converged fast, the content did not, and the payoff is smaller and more content-dependent than either side of the debate claims.
+
 ## Regenerating
 
 ```bash
