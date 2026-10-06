@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you cite this research set, please use this metadata."
+type: dataset
+title: "convention-map — where 22 AI coding harnesses read their instructions from"
+authors:
+  - name: "Orvii"
+    alias: "Orvii collective"
+identifiers:
+  - type: url
+    value: "https://github.com/Orvii/convention-map"
+repository-code: "https://github.com/Orvii/convention-map"
+version: "1.2.0"
+date-released: "2026-10-06"
+notes: "Per-harness convention-file maps: instruction files, skills, memory, precedence."

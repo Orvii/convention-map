@@ -1,10 +1,10 @@
 # Learned memory — who writes notes about you, and where
 
-As of 2026-10-05, 17 harnesses. "Learned memory" here means: the agent *writes* durable notes about the user/project without being asked, and reloads them later. Instruction files you author are not memory; they are input. Sources: per-harness pages.
+As of 2026-10-06, 22 harnesses. "Learned memory" here means: the agent *writes* durable notes about the user/project without being asked, and reloads them later. Instruction files you author are not memory; they are input. Sources: per-harness pages.
 
 ## The split
 
-**Built-in learned memory (7):**
+**Built-in learned memory (12):**
 
 | Harness | Default | Where it writes |
 |---|---|---|
@@ -15,6 +15,11 @@ As of 2026-10-05, 17 harnesses. "Learned memory" here means: the agent *writes* 
 | Codex CLI | **off** | config-gated (`[features] memories = true`) |
 | Kilo Code | **off**, per-project opt-in | `~/.local/share/kilo/memory/<project>/project.md` |
 | Copilot CLI | preview, paid plans | server-side ("Copilot Memory"), not local files |
+| Cursor | on (cloud automations) | per-automation `MEMORIES.md`, outside the agent filesystem; UI-managed |
+| Windsurf | on (legacy Cascade) | `~/.codeium/windsurf/memories/`, workspace-scoped; successor Devin Local persists none |
+| Google Jules | per-repo toggle | server-side "Jules Memory for Repositories"; no file path documented |
+| Amazon Kiro | on (Kiro Web) | account-level automatic memory; open-source Kiro Crew adds a six-layer local store |
+| Devin | on (cloud) | account Knowledge (deprecated, migrating to skills) + Automations scratchpad |
 
 **No learned memory (10):** OpenCode, Aider, Cline, Roo Code, Zed, OpenHands, Crush, Amazon Q CLI, Vibe, Continue. Their persistence is what you author (rules, transcripts, thread history) — nothing self-writes.
 
@@ -24,6 +29,8 @@ As of 2026-10-05, 17 harnesses. "Learned memory" here means: the agent *writes* 
 2. **Defaults disagree, and defaults are policy.** On-by-default memory (Claude Code, Qwen, Gemini) means the agent records observations about you unless you opt out; off-by-default (Codex, Kilo) treats that recording as a choice. Neither is neutral; the matrix records which choice each made.
 3. **Server-side memory is a different animal.** Copilot's lives on their servers, not your disk — deletable via their UI, not via `rm`. Anyone auditing what an agent remembers must first ask *where the memory lives*, because the answer decides who can read, export, or delete it.
 4. **"Memory Bank" is not memory.** Cline and Roo Code document a *user-implemented* markdown methodology under that name. It appears in searches for memory and is not learned memory at all — a naming collision worth knowing before citing either.
+
+5. **The cloud cluster moved memory off the disk entirely.** Cursor's per-automation memories, Jules' per-repo memory, Kiro Web's account memory and Devin's Knowledge all live in the vendor's account, not the user's filesystem. Point 3's audit question — *where does the memory live?* — now has a third answer beyond local files and one vendor server: *in an account scope you can only reach through a settings UI*, with migration paths (Devin Knowledge → skills) that can move your notes without touching your disk.
 
 ## Practical rules for multi-harness users
 

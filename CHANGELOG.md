@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-10-06] - 22 harnesses: memory split updated for the cloud-autonomous cluster
+
+### Modified
+- `MEMORY.md` — the learned-memory split now covers all 22 harness pages: Cursor, Windsurf (legacy Cascade), Google Jules, Amazon Kiro and Devin join the built-in-memory column (12 vs 10), each with where its notes live; new point 5 on account-scoped cloud memory and vendor-side migration paths.
+
 ## [2026-10-05] - Initial release: 17 harnesses, four views
 
 ### Added
