@@ -1,0 +1,20 @@
+name: count-gate
+
+# Stated harness counts must equal the pages on disk. Counts rot silently;
+# this fails loudly.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  counts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: check stated counts against harnesses/
+        run: ./scripts/check-counts.sh
