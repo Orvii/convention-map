@@ -29,7 +29,7 @@
       "path": "Review Standards (no file path documented)",
       "scope": "workspace",
       "precedence_note": "Standards can be workspace-wide or repository-scoped; precedence among rules is not documented.",
-      "evidence_url": "https://docs.qodo.ai/agentic-toolbox/manage-standards"
+      "evidence_url": "https://docs.qodo.ai/agentic-toolbox/manage-standards-skill"
     },
     {
       "path": ".pr_agent.toml",

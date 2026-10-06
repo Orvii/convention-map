@@ -4,8 +4,8 @@
 
 | path | scope | precedence | evidence |
 |---|---|---|---|
-| `agents.md` | project | Bolt starts with agents.md, then follows links or references; main instructions must be in agents.md. Precedence against other instruction sources is not documented. | [src](https://support.bolt.new/best-practices/manage-project-context) |
-| `record-keeping .md files (exact paths not documented)` | project | Read into context on every prompt; ordering or conflict handling is not documented. | [src](https://support.bolt.new/best-practices/manage-project-context) |
+| `agents.md` | project | Bolt starts with agents.md, then follows links or references; main instructions must be in agents.md. Precedence against other instruction sources is not documented. | [src](https://support.bolt.new/best-practices/manage-context) |
+| `record-keeping .md files (exact paths not documented)` | project | Read into context on every prompt; ordering or conflict handling is not documented. | [src](https://support.bolt.new/best-practices/manage-context) |
 
 ## Skill directories discovered
 
@@ -15,7 +15,7 @@ none documented.
 
 Project knowledge remains available after context is cleared, although recent chat history does not; Bolt retains access to project code and files. Account knowledge applies across projects, while project knowledge is limited to one project. Saved custom prompts are tied to the account and available across workspaces, including team workspaces, but are not shared with teammates by default.
 
-[src](https://support.bolt.new/best-practices/manage-project-context)
+[src](https://support.bolt.new/best-practices/manage-context)
 
 ## Compatibility notes
 

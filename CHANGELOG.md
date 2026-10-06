@@ -1,5 +1,15 @@
 # Changelog
 
+## [2026-10-06] - link-rot repair: five moved evidence URLs re-pointed
+
+### Modified
+- `journals/wf_v34-incoming.jsonl` and the `journals-incoming/` sources (tracked in this repo) — five vendor doc pages that moved since the research run, re-pointed to their live canonical URLs with each claim re-verified against the new page: Qodo `agentic-toolbox/manage-standards` → `…/manage-standards-skill` (carries the Review Standards wording); Replit `replitai/replit-md` → `features/project-setup/replit-dot-md` (carries "When Agent processes your requests, it automatically reads your `replit.md` file"), `replitai/agent-customization` → `features/agent/agent-customization` (carries "Workspace Settings → Customization"), `replitai/memories` → `chat/memories` (carries the private-by-default and Custom-Instructions-take-priority wording); Bolt `best-practices/manage-project-context` → `best-practices/manage-context` (carries the agents.md auto-read and record-keeping claims).
+- `harnesses/{bolt,qodo,replit-agent}.md` regenerated — paths, scopes and precedence notes unchanged, only the citation URLs moved.
+- Replit's `replit.md` row needed a source hunt rather than a slug guess: the page is absent from `llms.txt` but documented in full in `llms-full.txt`, which is what surfaced `features/project-setup/replit-dot-md`.
+
+### Removed
+- `scripts/__pycache__/` untracked and gitignored — a compiled artifact had been committed.
+
 ## [2026-10-06] - enforced reproducibility: regen-check gate + manifest-ordered regeneration
 
 ### Added
