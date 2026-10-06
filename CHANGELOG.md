@@ -1,5 +1,16 @@
 # Changelog
 
+## [2026-10-06] - wave 3: 27 harnesses, and the journals go public
+
+### Added
+- `journals/` — the research journals behind every page (waves 1-2 exported from the original runs, wave 3 from five independent researchers); regeneration is `python3 scripts/generate.py journals/*.jsonl`.
+- Five rows: Augment Code (rules hierarchy incl. CLAUDE.md above AGENTS.md, six skill roots incl. .claude/skills and .agents/skills), Tabnine (guidelines at user/project/enterprise scopes; skills in .agents/skills aliases; CLI in maintenance mode), Replit Agent (replit.md + workspace Custom Instructions; /.agents/skills + .local/secondary_skills), Qodo (instructions live in the HOST agent's AGENTS.md/CLAUDE.md by design; standards at workspace scope), Bolt (lowercase agents.md auto-read; AGENTS.md not documented).
+- `scripts/check-counts.sh` + CI count-gate (added earlier today) now guards every count in this repo.
+
+### Modified
+- `scripts/generate.py` — vocabulary matching is case-sensitive: Bolt's lowercase `agents.md` is a distinct convention from `AGENTS.md`, and counting it as compliance would be the survey's own lie. Verified identical hits on waves 1-2 before switching.
+- README/SYNTHESIS/MEMORY counts: AGENTS.md 23 of 27 (holdouts: Aider, Replit, Tabnine, Bolt-as-case-variant); .agents/skills 19, .claude/skills 12; memory split 15/12.
+
 ## [2026-10-06] - 22 harnesses: memory split updated for the cloud-autonomous cluster
 
 ### Modified

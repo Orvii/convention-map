@@ -27,9 +27,13 @@ SKILL_VOCAB = [
 
 
 def match_vocab(text: str, vocab):
-    """Free-form doc prose -> set of known convention markers it mentions."""
-    low = text.lower()
-    return {v for v in vocab if v.lower() in low}
+    """Free-form doc prose -> set of known convention markers it mentions.
+
+    Case-sensitive on purpose: Bolt documents lowercase `agents.md` and does
+    NOT document `AGENTS.md`; a case-insensitive match would credit it with
+    the standard it never claims. Verified against waves 1-2: identical hits.
+    """
+    return {v for v in vocab if v in text}
 
 
 def load(journals):

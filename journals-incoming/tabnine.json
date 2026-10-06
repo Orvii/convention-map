@@ -1,0 +1,66 @@
+{
+  "harness": "Tabnine",
+  "instruction_files": [
+    {
+      "path": "/.tabnine/guidelines/",
+      "scope": "user",
+      "precedence_note": "Organization guidelines override personal guidelines; precedence against project guidelines is not documented.",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-agent/guidelines.md"
+    },
+    {
+      "path": "$PROJECT_FOLDER/.tabnine/guidelines/appguidelines.md",
+      "scope": "project",
+      "precedence_note": "Project-guideline precedence is not documented.",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-agent/guidelines.md"
+    },
+    {
+      "path": "Admin Console -> Agent Guidelines -> General Guideline",
+      "scope": "enterprise",
+      "precedence_note": "Applies to organization users and projects; overrides personal guidelines.",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-agent/guidelines.md"
+    },
+    {
+      "path": "Organization instructions (CLI; no local file path documented)",
+      "scope": "enterprise",
+      "precedence_note": "Fetched into the authenticated CLI session; ordering against other instruction sources is not documented.",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/agent-guidelines-cli.md"
+    },
+    {
+      "path": "Service-account instructions (CLI; no local file path documented)",
+      "scope": "team",
+      "precedence_note": "Fetched when configured for the authenticated service account; scope classification and ordering are not documented.",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/agent-guidelines-cli.md"
+    },
+    {
+      "path": "Coaching Guidelines tool (CLI; no file path documented)",
+      "scope": "team",
+      "precedence_note": "Provides language-specific rules when enabled and supported; ordering is not documented.",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/agent-guidelines-cli.md"
+    }
+  ],
+  "skill_dirs": [
+    {
+      "path": "~/.tabnine/agent/skills/<name>/",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/agent-skills.md"
+    },
+    {
+      "path": "~/.agents/skills/<name>/",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/agent-skills.md"
+    },
+    {
+      "path": "<project>/.tabnine/agent/skills/<name>/",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/agent-skills.md"
+    },
+    {
+      "path": "<project>/.agents/skills/<name>/",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/agent-skills.md"
+    },
+    {
+      "path": "~/.tabnine/extensions/<extension-name>/ (extension install location; skill discovery path not documented)",
+      "evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/extensions.md"
+    }
+  ],
+  "memory": "Learned memory or persistent user preferences are not documented. When enabled, CLI checkpointing saves project-file snapshots in a shadow Git repository and conversation and pending-tool-call JSON in the project's temporary checkpoints directory; exact directory paths are not documented. Checkpointing is disabled by default, and checkpoints are removed when a new session starts, making this session rollback state rather than cross-session memory.",
+  "memory_evidence_url": "https://docs.tabnine.com/main/getting-started/tabnine-cli/features/checkpointing.md",
+  "notes": "The CLI discovers skills in .agents/skills aliases as well as Tabnine-specific skill directories; IDE guideline documentation only compares its guidelines with lowercase agents.md and does not document loading AGENTS.md or CLAUDE.md. Skill precedence is documented across built-in, extension, user, and workspace sources, while guideline precedence only specifies organization over personal; project ordering is not documented. The guidelines page labels /.tabnine/guidelines/ as the home-directory location; it does not show a ~ or $HOME form. Extension documentation says guides may be mirrored into TABNINE.md as a reference but does not specify automatic loading or extension discovery paths; the CLI is in maintenance mode, with critical updates planned through December 31, 2026, followed by deprecation."
+}

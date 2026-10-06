@@ -45,4 +45,4 @@ Exact prompt assembly order: Language Preference -> Global Instructions (Prompts
 
 Skills use progressive disclosure: at startup only SKILL.md frontmatter (name+description) is indexed; full body loaded on demand via read_file; mode filter applies (skills-{mode}).
 
-Docs site URLs: https://docs.roocode.com/features/custom-instructions and https://docs.roocode.com/features/skills (both 301 to roocodeinc.github.io/Roo-Code). Evidence fetched this session from raw repo files at the URLs above.
+Docs site URLs: https://docs.roocode.com/features/custom-instructions and https://docs.roocode.com/features/skills (both 301 to roocodeinc.github.io/Roo-Code). Evidence fetched during research from raw repo files at the URLs above.

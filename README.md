@@ -21,7 +21,7 @@ The ecosystem converged on a handful of convention files (`CLAUDE.md`, `AGENTS.m
 
 ## The short answer
 
-As of this snapshot (22 harnesses): `AGENTS.md` at the project root is read by **21 of 22** — the de-facto instruction interchange, and the one holdout (Aider) predates the format rather than rejecting it. For skills the field splits: `.agents/skills` is discovered by 16, while `.claude/skills` is discovered by 11, several of those purely for Claude-Code compatibility. Practical read: put instructions in `AGENTS.md`; put skills in `.agents/skills` and mirror into `.claude/skills` if you care about the compatibility tail. Read [SYNTHESIS.md](SYNTHESIS.md) for why that is an observation with an expiry date, not a standard.
+As of this snapshot (27 harnesses): `AGENTS.md` at the project root is read by **23 of 27** — the de-facto instruction interchange. The four holdouts are instructive rather than rebellious: **Aider** predates the format entirely; **Replit Agent** and **Tabnine** read house files (`replit.md`, `.tabnine/guidelines`) instead; and **Bolt** auto-reads lowercase `agents.md` while documenting no `AGENTS.md` at all — the convention spreading as a case-variant. For skills the field splits: `.agents/skills` is discovered by 19, while `.claude/skills` is discovered by 12, several of those purely for Claude-Code compatibility. Practical read: put instructions in `AGENTS.md`; put skills in `.agents/skills` and mirror into `.claude/skills` if you care about the compatibility tail. Read [SYNTHESIS.md](SYNTHESIS.md) for why that is an observation with an expiry date, not a standard.
 
 This repo answers *which file each harness reads*. The two adjacent questions — *what people actually put in those files* (2,303 real ones: testing instructions in 75.9%, security in 14.8%) and *whether the files change what agents do* (four experiments, one of them a null with a stated power bound) — live in [context-file-evidence](https://github.com/Orvii/context-file-evidence). Read together they say: the format converged fast, the content did not, and the payoff is smaller and more content-dependent than either side of the debate claims.
 
@@ -35,7 +35,7 @@ Same evidence contract as [harness-atlas](https://github.com/Orvii/harness-atlas
 
 ## Using the finding: mirror your skills
 
-The map says `.agents/skills` (16/22) and `.claude/skills` (11/22) together cover the field. `scripts/mirror-skills.sh` copies a skill folder into both:
+The map says `.agents/skills` (19/27) and `.claude/skills` (12/27) together cover the field. `scripts/mirror-skills.sh` copies a skill folder into both:
 
 ```bash
 scripts/mirror-skills.sh path/to/my-skill [repo-root]

@@ -1,10 +1,10 @@
 # Learned memory — who writes notes about you, and where
 
-As of 2026-10-06, 22 harnesses. "Learned memory" here means: the agent *writes* durable notes about the user/project without being asked, and reloads them later. Instruction files you author are not memory; they are input. Sources: per-harness pages.
+As of 2026-10-06, 27 harnesses. "Learned memory" here means: the agent *writes* durable notes about the user/project without being asked, and reloads them later. Instruction files you author are not memory; they are input. Sources: per-harness pages.
 
 ## The split
 
-**Built-in learned memory (12):**
+**Built-in learned memory (15):**
 
 | Harness | Default | Where it writes |
 |---|---|---|
@@ -20,8 +20,11 @@ As of 2026-10-06, 22 harnesses. "Learned memory" here means: the agent *writes* 
 | Google Jules | per-repo toggle | server-side "Jules Memory for Repositories"; no file path documented |
 | Amazon Kiro | on (Kiro Web) | account-level automatic memory; open-source Kiro Crew adds a six-layer local store |
 | Devin | on (cloud) | account Knowledge (deprecated, migrating to skills) + Automations scratchpad |
+| Augment Code | on (Cosmos Experts) | Markdown memory in the Expert's directory on the shared virtual filesystem |
+| Replit Agent | on | user + Project memories; sensitive categories excluded, private by default |
+| Bolt | on (project knowledge) | persists through context clears; account knowledge spans projects |
 
-**No learned memory (10):** OpenCode, Aider, Cline, Roo Code, Zed, OpenHands, Crush, Amazon Q CLI, Vibe, Continue. Their persistence is what you author (rules, transcripts, thread history) — nothing self-writes.
+**No learned memory (12):** OpenCode, Aider, Cline, Roo Code, Zed, OpenHands, Crush, Amazon Q CLI, Vibe, Continue, Tabnine (checkpointing is session rollback — not memory), Qodo (Context Engine retention undocumented). Their persistence is what you author (rules, transcripts, thread history) — nothing self-writes.
 
 ## What the split says
 

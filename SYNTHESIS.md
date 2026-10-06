@@ -4,13 +4,13 @@ As of 2026-10-05, 22 harnesses. Counts below are harnesses whose docs document l
 
 ## 1. AGENTS.md won the instruction war by absence of opposition
 
-21 of 22 harnesses document reading `AGENTS.md`. The single holdout is **Aider**, whose design predates the format and whose docs document no instruction file at all — not a rejection but an absence. The house-file camps (Crush, Qwen Code) read their own file *and* AGENTS.md, so the count is about defaults, not exclusivity.
+23 of 27 harnesses document reading `AGENTS.md`. The four holdouts split into three kinds of absence: **Aider** predates the format and documents no instruction file at all; **Replit Agent** and **Tabnine** ship house files (`replit.md`, `.tabnine/guidelines`) and document no AGENTS.md; and **Bolt** auto-reads lowercase `agents.md` — the convention adopted as a case-variant, which a case-insensitive survey would have miscounted as compliance. The house-file camps (Crush, Qwen Code, Replit, Tabnine) read their own file, and three of the four also read AGENTS.md elsewhere in their docs, so the count is about defaults, not exclusivity.
 
 The decisive detail is Claude Code's rule: it reads `AGENTS.md` **only when no `CLAUDE.md` exists** in the working directory or above (default `claude-md-or-agents-md`, v2.1.277+). So the ecosystem's most influential harness defers to AGENTS.md precisely when the house file is absent — which is exactly the condition in every repo that adopted the open convention first. A standard won by being the fallback.
 
 ## 2. Skills split into two camps, and the split is political
 
-`.agents/skills` (16) vs `.claude/skills` (11). The `.claude/skills` readers include harnesses that document the path explicitly as Claude-Code compatibility (OpenCode gates it behind `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1`; Crush lists it among several discovery roots). The `.agents/skills` readers are the neutral-ground camp.
+`.agents/skills` (19) vs `.claude/skills` (12). The `.claude/skills` readers include harnesses that document the path explicitly as Claude-Code compatibility (OpenCode gates it behind `OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1`; Crush lists it among several discovery roots). The `.agents/skills` readers are the neutral-ground camp.
 
 Practical consequence: mirroring a skill folder into both paths costs nothing and covers ~the union. Treating either as "the standard" costs you the other camp.
 

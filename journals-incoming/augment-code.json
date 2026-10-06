@@ -1,0 +1,116 @@
+{
+  "harness": "Augment Code",
+  "instruction_files": [
+    {
+      "path": "/path/to/custom-rules.md",
+      "scope": "project",
+      "precedence_note": "CLI lists custom rules first and says they are appended to automatically loaded workspace guidelines; the file's scope is not documented.",
+      "evidence_url": "https://docs.augmentcode.com/cli/rules"
+    },
+    {
+      "path": "CLAUDE.md",
+      "scope": "project",
+      "precedence_note": "CLI lists it above AGENTS.md; also discovered hierarchically up to the workspace root.",
+      "evidence_url": "https://docs.augmentcode.com/cli/rules"
+    },
+    {
+      "path": "AGENTS.md",
+      "scope": "project",
+      "precedence_note": "CLI lists it below CLAUDE.md; also discovered hierarchically up to the workspace root.",
+      "evidence_url": "https://docs.augmentcode.com/cli/rules"
+    },
+    {
+      "path": "<workspace_root>/.augment-guidelines",
+      "scope": "project",
+      "precedence_note": "CLI ranks below AGENTS.md and workspace rules; IDE lists it last when applying rules under the character limit.",
+      "evidence_url": "https://docs.augmentcode.com/setup-augment/guidelines"
+    },
+    {
+      "path": "<workspace_root>/.augment/rules/",
+      "scope": "project",
+      "precedence_note": "CLI ranks below workspace guidelines; IDE rules support Always, Manual, and Auto types.",
+      "evidence_url": "https://docs.augmentcode.com/cli/rules"
+    },
+    {
+      "path": "~/.augment/rules/",
+      "scope": "user",
+      "precedence_note": "CLI ranks below workspace rules; IDE user rules are always included.",
+      "evidence_url": "https://docs.augmentcode.com/setup-augment/guidelines"
+    },
+    {
+      "path": "~/.augment/user-guidelines.md",
+      "scope": "user",
+      "precedence_note": "IDE user guidelines apply to future chats in that IDE; ordering against other sources is not documented.",
+      "evidence_url": "https://docs.augmentcode.com/setup-augment/guidelines"
+    },
+    {
+      "path": "*.md",
+      "scope": "project",
+      "precedence_note": "Can be imported as workspace rules; general precedence is not documented.",
+      "evidence_url": "https://docs.augmentcode.com/setup-augment/guidelines"
+    },
+    {
+      "path": "*.mdx",
+      "scope": "project",
+      "precedence_note": "Can be imported as workspace rules; general precedence is not documented.",
+      "evidence_url": "https://docs.augmentcode.com/setup-augment/guidelines"
+    }
+  ],
+  "skill_dirs": [
+    {
+      "path": "~/.augment/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cli/skills"
+    },
+    {
+      "path": "<workspace>/.augment/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cli/skills"
+    },
+    {
+      "path": "~/.claude/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cli/skills"
+    },
+    {
+      "path": "<workspace>/.claude/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cli/skills"
+    },
+    {
+      "path": "~/.agents/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cli/skills"
+    },
+    {
+      "path": "<workspace>/.agents/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cli/skills"
+    },
+    {
+      "path": "cosmos/files/organization/.augment/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cosmos/config-skills"
+    },
+    {
+      "path": "cosmos/files/user/.augment/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cosmos/config-skills"
+    },
+    {
+      "path": "<repo>/<workspace>/.claude/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cosmos/config-skills"
+    },
+    {
+      "path": "<repo>/<workspace>/.agents/skills/",
+      "evidence_url": "https://docs.augmentcode.com/cosmos/config-skills"
+    },
+    {
+      "path": "plugins/hello-commands/",
+      "evidence_url": "https://docs.augmentcode.com/cli/plugins"
+    },
+    {
+      "path": "agents/",
+      "evidence_url": "https://docs.augmentcode.com/cli/plugins"
+    },
+    {
+      "path": "skills/",
+      "evidence_url": "https://docs.augmentcode.com/cli/plugins"
+    }
+  ],
+  "memory": "Cosmos Experts retain useful context across sessions as readable Markdown in the Expert's directory in the shared virtual filesystem. Memory is enabled for all Template Experts; custom Experts created with Cosmos Advisor get lightweight memory by default unless omitted. Experts can save trusted feedback directly and build evidence before promoting noisier signals.",
+  "memory_evidence_url": "https://docs.augmentcode.com/cosmos/experts-memory",
+  "notes": "Auggie and the IDE support Claude- and Agents-style skill directories, including .claude/skills/ and .agents/skills/. CLI rules have a listed order, but the docs do not define a general conflict-resolution algorithm; the IDE's order applies to limit handling. IDE documentation says hierarchical AGENTS.md and CLAUDE.md files are combined, while CLI lists CLAUDE.md above AGENTS.md. Cosmos skill paths and memory are documented, but Cosmos instruction-file paths and team/enterprise instruction-file scopes are not documented."
+}
