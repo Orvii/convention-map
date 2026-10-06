@@ -1,5 +1,14 @@
 # Changelog
 
+## [2026-10-06] - enforced reproducibility: regen-check gate + manifest-ordered regeneration
+
+### Added
+- `.github/workflows/regen-check.yml` — regenerates every page from `journals/` on data-path pushes and fails if any committed page differs. The evidence contract now has the same mechanical enforcement harness-atlas has: a hand-edited cell cannot land.
+
+### Modified
+- `scripts/generate.py` — `main()` orders journals by the wave sequence `journals/MANIFEST.md` declares instead of trusting the caller's argument order. The documented command is `generate.py journals/*.jsonl`, and a shell glob expands alphabetically, not by wave; the sort makes the printed command correct for any file set (the latent form of the bug that bit harness-atlas). Explicit `manifest=` override for CI's /tmp regeneration; `encoding="utf-8"` on every read and write (the documented workflow previously depended on the platform default encoding).
+- `README.md` — the Regenerating section prints the safe glob form and states that CI enforces regeneration parity.
+
 ## [2026-10-06] - wave 3: 27 harnesses, and the journals go public
 
 ### Added

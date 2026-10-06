@@ -1,0 +1,70 @@
+name: regen-check
+
+# The journals/ directory is the public source of every page. If the pages
+# ever drift from what the journals compile to, the evidence contract is
+# broken — fail loudly instead of letting a hand-edit slip in. Same gate as
+# harness-atlas; the sister repos share the contract and the enforcement.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "harnesses/**"
+      - "matrix.md"
+      - "journals/**"
+      - "scripts/generate.py"
+  pull_request:
+    paths:
+      - "harnesses/**"
+      - "matrix.md"
+      - "journals/**"
+      - "scripts/generate.py"
+
+permissions:
+  contents: read
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: regenerate from public journals
+        run: |
+          mkdir -p /tmp/regen/harnesses
+          python3 - <<'PY'
+          import sys
+          from pathlib import Path
+          import importlib.util
+          spec = importlib.util.spec_from_file_location("gen", "scripts/generate.py")
+          gen = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(gen)
+          # generate.py orders journals by the manifest it is handed; pass the
+          # checkout's MANIFEST.md explicitly because /tmp/regen has no journals/
+          journals = sorted(str(p) for p in Path("journals").glob("*.jsonl"))
+          gen.main(journals, Path("/tmp/regen"), Path("journals/MANIFEST.md"))
+          PY
+
+      - name: diff pages against regenerated output
+        run: |
+          fail=0
+          if ! diff -q matrix.md /tmp/regen/matrix.md >/dev/null; then
+            echo "::error file=matrix.md::page drifted from journals/ — regenerate or fix the journal"
+            diff matrix.md /tmp/regen/matrix.md | head -20
+            fail=1
+          fi
+          (cd harnesses && ls | sort > /tmp/c.txt)
+          (cd /tmp/regen/harnesses && ls | sort > /tmp/r.txt)
+          setdiff=$(comm -3 /tmp/c.txt /tmp/r.txt)
+          if [ -n "$setdiff" ]; then
+            echo "::error::harness set differs between pages and journals: $setdiff"
+            fail=1
+          fi
+          for f in harnesses/*.md; do
+            if ! diff -q "$f" "/tmp/regen/$f" >/dev/null; then
+              echo "::error file=$f::page drifted from journals/ — regenerate or fix the journal"
+              diff "$f" "/tmp/regen/$f" | head -20
+              fail=1
+            fi
+          done
+          exit $fail

@@ -36,10 +36,34 @@ def match_vocab(text: str, vocab):
     return {v for v in vocab if v in text}
 
 
+def manifest_order(journals, manifest):
+    """Order journal files by the wave order MANIFEST.md declares.
+
+    "Later waves win on conflicts" is load-bearing and is NOT the alphabetical
+    order a shell glob produces: `journals/*.jsonl` would apply whichever wave
+    sorts last as the winner, regardless of when it actually ran. The README and
+    MANIFEST both print the glob form, so sort here by the manifest's declared
+    order; files the manifest does not list go last (newest, alphabetical among
+    themselves — the incoming-journal convention).
+    """
+    if not manifest.exists():
+        return list(journals)
+    text = manifest.read_text(encoding="utf-8")
+    declared = []
+    for name in re.findall(r"\((wf_[A-Za-z0-9._-]+\.jsonl)\)", text):
+        if name not in declared:
+            declared.append(name)
+    rank = {name: i for i, name in enumerate(declared)}
+    return sorted(
+        journals,
+        key=lambda j: (rank.get(Path(j).name, len(rank)), Path(j).name),
+    )
+
+
 def load(journals):
     merged = {}
     for j in journals:
-        for line in Path(j).read_text().splitlines():
+        for line in Path(j).read_text(encoding="utf-8").splitlines():
             if not line.strip():
                 continue
             m = json.loads(line)
@@ -50,7 +74,17 @@ def load(journals):
     return sorted(merged.values(), key=lambda r: slug(r["harness"]))
 
 
-def main(journals, out: Path):
+def main(journals, out: Path, manifest: Path = None):
+    # Order by MANIFEST.md's wave sequence, not the order the shell expanded:
+    # later waves must win on conflicts (see manifest_order's docstring). The
+    # caller passes the repo root as `out`, so the manifest sits beside the
+    # journals it describes; an explicit path overrides it (CI regenerates
+    # into /tmp from the same checkout).
+    if manifest is None:
+        candidate = Path(out) / "journals" / "MANIFEST.md"
+        manifest = candidate if candidate.exists() else None
+    if manifest is not None:
+        journals = manifest_order(journals, manifest)
     rows = load(journals)
     if not rows:
         sys.exit("no results")
@@ -89,7 +123,7 @@ def main(journals, out: Path):
             lines += ["", f"[src]({r['memory_evidence_url']})"]
         if r.get("notes"):
             lines += ["", "## Compatibility notes", "", r["notes"]]
-        (out / "harnesses" / f"{s}.md").write_text("\n".join(lines) + "\n")
+        (out / "harnesses" / f"{s}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     # matrix: harness x file, mark loads
     md = ["# Convention-file load matrix", "",
@@ -111,7 +145,7 @@ def main(journals, out: Path):
                 mark = "◆"
             cells.append(f"[{mark}](harnesses/{s}.md)" if mark else "·")
         md.append(f"| [{r['harness']}](harnesses/{s}.md) | " + " | ".join(cells) + " |")
-    (out / "matrix.md").write_text("\n".join(md) + "\n")
+    (out / "matrix.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     print(f"wrote {len(rows)} pages + matrix.md over {len(files)} convention paths")
 
 

@@ -28,8 +28,10 @@ This repo answers *which file each harness reads*. The two adjacent questions â€
 ## Regenerating
 
 ```bash
-python3 scripts/generate.py <journal.jsonl> [...]
+python3 scripts/generate.py journals/*.jsonl
 ```
+
+The generator sorts the files by the wave order [journals/MANIFEST.md](journals/MANIFEST.md) declares (later waves win on conflicts), so the glob form is safe â€” the shell's alphabetical expansion is not the merge order. CI regenerates on every data-path push and fails if any committed page differs from what the journals compile to.
 
 Same evidence contract as [harness-atlas](https://github.com/Orvii/harness-atlas): no memory answers, dates travel with claims, `unknown` over guess.
 
